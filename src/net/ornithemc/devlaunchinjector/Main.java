@@ -1,4 +1,4 @@
-package net.fabricmc.devlaunchinjector;
+package net.ornithemc.devlaunchinjector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,37 +26,37 @@ import java.util.regex.Pattern;
  *
  * <p>Example invocation:
  * {@code java
- * -Dfabric.dli.env=client
- * -Dfabric.dli.main=something.pkg.Main
- * -Dfabric.dli.config=/home/user/some/config.cfg
+ * -Dornithe.dli.env=client
+ * -Dornithe.dli.main=something.pkg.Main
+ * -Dornithe.dli.config=/home/user/some/config.cfg
  * -cp [...]
- * net.fabricmc.devlaunchinjector.Main
+ * net.ornithemc.devlaunchinjector.Main
  * [pass-through args...]}
  *
  * <p>Example config:
  * <pre> {@code
  * commonProperties
- *   fabric.development=true
+ *   ornithe.development=true
  * clientProperties
- *   java.library.path=/home/user/.gradle/caches/fabric-loom/natives/1.14.4
- *   org.lwjgl.librarypat=/home/user/.gradle/caches/fabric-loom/natives/1.14.4
+ *   java.library.path=/home/user/.gradle/caches/ornithe-loom/natives/1.14.4
+ *   org.lwjgl.librarypat=/home/user/.gradle/caches/ornithe-loom/natives/1.14.4
  * clientArgs
  *   --assetIndex=1.14.4-1.14
- *   --assetsDir=/home/user/.gradle/caches/fabric-loom/assets
+ *   --assetsDir=/home/user/.gradle/caches/ornithe-loom/assets
  * }</pre>
  */
 public final class Main {
 	public static void main(String[] args) throws Throwable {
-		String env = System.clearProperty("fabric.dli.env"); // desired environment, for config section selection
-		String main = System.clearProperty("fabric.dli.main"); // main class to invoke afterwards
-		String config = System.clearProperty("fabric.dli.config"); // config file location
+		String env = System.clearProperty("ornithe.dli.env"); // desired environment, for config section selection
+		String main = System.clearProperty("ornithe.dli.main"); // main class to invoke afterwards
+		String config = System.clearProperty("ornithe.dli.config"); // config file location
 		Path configFile;
 
 		if (main == null) {
-			System.err.println("error: missing fabric.dli.main property, can't launch");
+			System.err.println("error: missing ornithe.dli.main property, can't launch");
 			System.exit(1);
 		} else if (env == null || config == null) {
-			warnNoop("missing fabric.dli.env or fabric.dli.config properties");
+			warnNoop("missing ornithe.dli.env or ornithe.dli.config properties");
 		} else if (!Files.isRegularFile(configFile = Paths.get(decodeEscaped(config)))
 				|| !Files.isReadable(configFile)) {
 			warnNoop("missing or unreadable config file ("+configFile+")");

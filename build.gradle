@@ -7,9 +7,9 @@ plugins {
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
-group = 'net.fabricmc'
+group = 'net.ornithemc'
 archivesBaseName = 'dev-launch-injector'
-version = '0.2.1'
+version = '0.1.0'
 
 def ENV = System.getenv()
 version = version + "+" + (ENV.BUILD_NUMBER ? ("build." + ENV.BUILD_NUMBER) : "local")
@@ -37,12 +37,13 @@ publishing {
 	}
 
 	repositories {
-		if (project.hasProperty('mavenPass')) {
+		if (ENV.MAVEN_URL) {
 			maven {
-				url = "http://mavenupload.modmuss50.me/"
+				url = ENV.MAVEN_URL
+
 				credentials {
-					username = "buildslave"
-					password = project.getProperty('mavenPass')
+					username = ENV.MAVEN_USERNAME
+					password = ENV.MAVEN_PASSWORD
 				}
 			}
 		}
