@@ -12,7 +12,6 @@ archivesBaseName = 'dev-launch-injector'
 version = '0.1.0'
 
 def ENV = System.getenv()
-version = version
 
 sourceSets {
     main {
